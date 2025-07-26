@@ -1,26 +1,19 @@
-# README
+# CA-encrypt-decrypt App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a web application develop as part of a Collage Assigment (Data Security System).
+This application is designed for students to practice and comprehend data encryption and decryption processes as part of system security.
 
-Things you may want to cover:
+## Technologies Used
 
+* **Programming Languages:** Ruby
+* **Frameworks/Libraries:** Ruby on Rails
+* **Database:** SQLite
+* **Tools:** Git, Sublime Text
+* **Others:** -
+
+## Things you may want to cover:
 * Ruby version
+  2.7.2
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# CA-encrypt-decrypt
-# CA-encrypt-decrypt
+* Rails version
+  6.0.4

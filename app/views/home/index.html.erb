@@ -1,0 +1,114 @@
+<%= render partial: "layouts/nav" %>
+<div class="card main-card">
+  <%= form_tag '#', method: :get do %>
+    <div class="card-body">
+      <div class="card-title">
+        <div>
+          <div class="d-flex justify-content-between">
+            <h4 class="card-title">Enkripsi</h4>
+          </div>
+        </div>
+        <section class="p-0">
+          <div class="collapse show" id="advanceSearch">
+            <div class="row date-picker">
+              <div class="col-lg-6 col-12 mb-2">
+                <%= label_tag :encrypt_text, 'Text to Encrypt' %>
+                <%= text_area_tag :encrypt_text, params[:encrypt_text], {class: "form-control", autocomplete: :off, id: 'encrypt-text'} %>
+              </div>
+              <div class="col-lg-6 col-12 mb-2">
+                <%= label_tag :encrypted_text, 'Encrypted Text' %>
+                <%= text_area_tag :encrypted_text, params[:encrypted_text], { class: "form-control", autocomplete: :off, id: 'encrypted-text', disabled: true } %>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="card-footer default">
+      <a href="javascript:void(0)" class="btn btn-primary" id="submit-encrypt-text">
+        Encrypt
+      </a>
+      <a href="javascript:void(0)" class="btn btn-primary" id="reset-encrypt-text">
+        Clear Text
+      </a>
+    </div>
+  <% end %>
+
+  <%= form_tag '#', method: :get do %>
+    <div class="card-body">
+      <div class="card-title">
+        <div>
+          <div class="d-flex justify-content-between">
+            <h4 class="card-title">Dekripsi</h4>
+          </div>
+        </div>
+        <section class="p-0">
+          <div class="collapse show" id="advanceSearch">
+            <div class="row date-picker">
+              <div class="col-lg-6 col-12 mb-2">
+                <%= label_tag :decrypt_text, 'Text to Decrypt' %>
+                <%= text_area_tag :decrypt_text, params[:decrypt_text], {class: "form-control", autocomplete: :off, id: 'decrypt-text'} %>
+              </div>
+              <div class="col-lg-6 col-12 mb-2">
+                <%= label_tag :decrypted_text, 'Encrypted Text' %>
+                <%= text_area_tag :decrypted_text, params[:decrypted_text], { class: "form-control", autocomplete: :off, id: 'decrypted-text', disabled: true } %>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="card-footer default">
+      <a href="javascript:void(0)" class="btn btn-primary" id="submit-decrypt-text">
+        Decrypt
+      </a>
+      <a href="javascript:void(0)" class="btn btn-primary" id="reset-decrypt-text">
+        Clear Text
+      </a>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :custom_js_tag do %>
+<script>
+  $(document).ready(function() {
+    $("#submit-encrypt-text").click(function(){
+      var encrypt_text = $('#encrypt-text').val();
+      $.ajax({
+        type: "GET",
+        dataType:"json",
+        data: { "encrypt_text" : encrypt_text },
+        url: "<%= encrypt_text_home_index_path %>",
+        success: function(response){
+          console.log(response.encrypted_data)
+          $('#encrypted-text').val(response.encrypted_data);
+        }
+      })
+    });
+
+    $("#submit-decrypt-text").click(function(){
+      var decrypt_text = $('#decrypt-text').val();
+      $.ajax({
+        type: "GET",
+        dataType:"json",
+        data: { "decrypt_text" : decrypt_text },
+        url: "<%= decrypt_text_home_index_path %>",
+        success: function(response){
+          console.log(response.decrypted_data)
+          $('#decrypted-text').val(response.decrypted_data);
+        }
+      })
+    });
+
+    $("#reset-encrypt-text").click(function(){
+      $("#encrypt-text").val("");
+      $("#encrypted-text").val("");
+    });
+
+    $("#reset-decrypt-text").click(function(){
+      $("#decrypt-text").val("");
+      $("#decrypted-text").val("");
+    });
+  });
+</script>
+<% end %>
